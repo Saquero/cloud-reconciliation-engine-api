@@ -1,3 +1,7 @@
+## 🚀 Demo Flow
+
+![Swagger Demo](https://via.placeholder.com/800x400?text=Swagger+API+Demo)
+
 # Cloud Reconciliation Engine API
 
 A professional backend portfolio project built with **C#**, **.NET 8**, **Clean Architecture**, **Domain-Driven Design (DDD)** and **Hexagonal Architecture**.
