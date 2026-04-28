@@ -1,6 +1,6 @@
 ## 🚀 Demo Flow
 
-![Swagger Demo](https://via.placeholder.com/800x400?text=Swagger+API+Demo)
+![Swagger Demo](./swagger-demo.png)
 
 # 🚀 Cloud Reconciliation Engine API
 
