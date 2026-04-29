@@ -4,13 +4,22 @@ using CleanDddHexagonal.Application.UseCases.Reconciliation;
 using CleanDddHexagonal.Application.UseCases.UsageRecords;
 using CleanDddHexagonal.Infrastructure;
 using CleanDddHexagonal.Infrastructure.Persistence;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Cloud Reconciliation Engine API",
+        Version = "v1",
+        Description = ".NET 8 API built with Clean Architecture, DDD and Hexagonal Architecture."
+    });
+});
 
 builder.Services.AddScoped<CreateCustomerUseCase>();
 builder.Services.AddScoped<GetCustomersUseCase>();
@@ -39,7 +48,11 @@ app.UseMiddleware<GlobalExceptionMiddleware>();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.DocumentTitle = "Cloud Reconciliation Engine API";
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Cloud Reconciliation Engine API v1");
+    });
 }
 
 app.UseHttpsRedirection();
