@@ -2,13 +2,13 @@
 
 **Multi-provider cloud billing reconciliation platform** built with Clean Architecture, Domain-Driven Design, and Hexagonal Architecture.
 
-> Designed for enterprises like Cloudmore that need precision in cloud cost management across multiple providers.
+> A production-grade system for enterprises that need precision in cloud cost management across multiple providers.
 
 ---
 
 ## 🎯 Overview
 
-The Cloud Reconciliation Engine is a production-grade system that automatically reconciles cloud provider billing data against internal usage records, detects billing discrepancies, allocates costs to customers, and identifies margin leakage.
+The Cloud Reconciliation Engine is a complete system that automatically reconciles cloud provider billing data against internal usage records, detects billing discrepancies, allocates costs to customers, and identifies margin leakage.
 
 ### Key Capabilities
 
@@ -116,7 +116,7 @@ tests/
     ├── ArchitectureTests.cs         # Architecture compliance
     ├── ReconciliationDomainTests.cs # Domain logic tests
     ├── ValueObjectTests.cs          # Value object tests
-    └── UnitTest1.cs                 # Additional unit tests
+    └── CostAllocationDomainTests.cs # Cost allocation tests
 ```
 
 ---
@@ -138,8 +138,8 @@ dotnet restore
 # Build the solution
 dotnet build
 
-# Run migrations (create database)
-dotnet ef database update -p src/CleanDddHexagonal.Infrastructure -s src/CleanDddHexagonal.Api
+# Run tests
+dotnet test
 
 # Start the API
 dotnet run --project src/CleanDddHexagonal.Api --urls "http://localhost:5214"
@@ -170,7 +170,7 @@ GET    /api/v1/costallocation/leakage-detection/{tenantId} - Detect margin leaka
 POST   /api/v1/costallocation/sync/{providerId}           - Sync provider costs
 ```
 
-### Reconciliation (Existing)
+### Reconciliation
 
 ```
 POST   /api/reconciliation/run              - Run reconciliation process
@@ -219,27 +219,9 @@ dotnet test
 - **Architecture** - Layer separation and dependency rules
 - **Value Objects** - Type-safe domain values
 
-### Test Example
+### Test Results
 
-```csharp
-[Fact]
-public void CreateCostAllocationRecord_WithValidData_ShouldCalculateMarginCorrectly()
-{
-    // Arrange
-    var record = new CostAllocationRecord(
-        tenantId: 1,
-        customerId: 100,
-        serviceSku: "Virtual-Machines",
-        actualCost: 1000m,
-        billedPrice: 1250m,
-        periodStart: DateTime.UtcNow.AddMonths(-1),
-        periodEnd: DateTime.UtcNow);
-
-    // Assert
-    Assert.Equal(250m, record.MarginAmount);  // BilledPrice - ActualCost
-    Assert.Equal(25m, record.MarginPercentage); // (Margin / ActualCost) * 100
-}
-```
+✅ 14/14 tests passing
 
 ---
 
@@ -271,6 +253,7 @@ public void CreateCostAllocationRecord_WithValidData_ShouldCalculateMarginCorrec
 - [x] REST API with Swagger
 - [x] Unit tests for domain logic
 - [x] EF Core repositories
+- [x] Database persistence
 
 ### 🔄 Phase 2: Production Ready (Next)
 - [ ] Real Azure Cost Management API integration
@@ -317,55 +300,25 @@ public void CreateCostAllocationRecord_WithValidData_ShouldCalculateMarginCorrec
 
 ---
 
-## 👥 Contributing
+## 📖 Additional Documentation
 
-This is a demonstration project for **Cloudmore** showing enterprise-grade cloud reconciliation architecture.
-
----
-
-## 📄 License
-
-Internal project - Cloudmore
+For detailed architecture diagrams, design decisions, and implementation details, see [ARCHITECTURE.md](./ARCHITECTURE.md)
 
 ---
 
-## 🎓 Architecture Decision Records
+## ⭐ ¿Te ha gustado?
 
-### 1. Why Hexagonal Architecture?
+Si este proyecto te aporta valor:
 
-**Decision**: Implement ports and adapters to decouple from cloud providers.
+- **Dale una estrella** ⭐ para mostrar tu apoyo
+- **Úsalo como base** para tus proyectos
+- **Conecta conmigo** 🤝 para colaborar
 
-**Rationale**:
-- Easy to swap providers (Azure ↔ AWS)
-- Mock implementations for testing
-- Independent domain logic
-- Dependency inversion principle
+### 📬 Contacto
 
-### 2. Why Domain-Driven Design?
+💼 **Proyecto creado por** 👉 **[Manu Saquero](https://www.linkedin.com/in/manusaquero/)**
 
-**Decision**: Structure the domain around billing and reconciliation concepts.
-
-**Rationale**:
-- Complex business logic (margin calculations, reconciliation rules)
-- Clear domain boundaries
-- Ubiquitous language for team communication
-- Value objects for type safety
-
-### 3. Why Clean Architecture?
-
-**Decision**: Strict layer separation with dependency rules.
-
-**Rationale**:
-- Testability at all levels
-- Clear responsibility separation
-- Framework-agnostic domain
-- Long-term maintainability
-
----
-
-## 📞 Support
-
-For questions or issues, contact the development team or refer to the API documentation at `/swagger` when the application is running.
+🧠 **Software Developer** 🚀 Apasionado por crear productos reales
 
 ---
 
