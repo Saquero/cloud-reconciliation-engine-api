@@ -1,226 +1,201 @@
-# Cloud Reconciliation Engine - Enterprise Edition
+# Cloud Reconciliation Engine — Enterprise Edition
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![.NET 8](https://img.shields.io/badge/.NET-8.0-blueviolet)](https://dotnet.microsoft.com/download/dotnet/8.0)
-[![Tests: Passing](https://img.shields.io/badge/Tests-14%2F14%20Passing-brightgreen)](./tests)
-[![Architecture: Clean](https://img.shields.io/badge/Architecture-Clean%20%2B%20DDD%20%2B%20Hexagonal-blue)](#-architecture)
+<p align="center">
+  <b>Multi-provider cloud billing reconciliation platform</b><br/>
+  Built with Clean Architecture · DDD · Hexagonal
+</p>
 
-**Multi-provider cloud billing reconciliation platform** built with Clean Architecture, Domain-Driven Design, and Hexagonal Architecture.
-
-> A production-grade system for enterprises that need precision in cloud cost management across multiple providers.
+<p align="center">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg"/>
+  <img src="https://img.shields.io/badge/.NET-8.0-blueviolet"/>
+  <img src="https://img.shields.io/badge/Tests-14%2F14%20Passing-brightgreen"/>
+  <img src="https://img.shields.io/badge/Architecture-Clean%20%2B%20DDD%20%2B%20Hexagonal-blue"/>
+</p>
 
 ---
 
-## ?? Quick Demo
+## 🚀 Quick Start
 
-``ash
-# Clone
+```bash
 git clone https://github.com/Saquero/cloud-reconciliation-engine-api.git
+cd cloud-reconciliation-engine-api
+dotnet restore
+dotnet run --project src/CleanDddHexagonal.Api --urls "http://localhost:5214"
+```
 
-# Run
-dotnet run --project src/CleanDddHexagonal.Api
-
-# Open Swagger
-http://localhost:5214/swagger
-``
-
----
-
-## ? Features
-
-- **Multi-Provider Support** - Azure, AWS (extensible to GCP)
-- **Real-Time Reconciliation** - Automated mismatch detection
-- **Cost Allocation** - Distribute costs across customers  
-- **Margin Analysis** - Identify profitability
-- **Multi-Tenant** - Enterprise-grade isolation
-- **14/14 Tests Passing** - Full domain logic coverage
-- **Clean Architecture** - DDD, Hexagonal, fully testable
+👉 API: http://localhost:5214  
+👉 Swagger: http://localhost:5214/swagger  
 
 ---
 
-## ??? Architecture
+## ✨ Features
 
-### Layered Design
-
-`
-+-----------------------------------------+
-�         API Layer (REST)                �
-�    (Controllers, Middleware)            �
-+-----------------------------------------�
-�    Application Layer (Use Cases)        �
-�  (Business Workflows, DTOs, Ports)      �
-+-----------------------------------------�
-�      Domain Layer (Business Logic)      �
-� (Entities, Value Objects, Services)     �
-+-----------------------------------------�
-�  Infrastructure Layer (Adapters, DB)    �
-� (EF Core, Cloud Providers, Repositories)�
-+-----------------------------------------+
-`
-
-**See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed design documentation.**
+- Multi-provider architecture (Azure, AWS, extensible to GCP)
+- Real-time reconciliation with mismatch detection
+- Cost allocation per tenant/customer
+- Margin analysis for profitability
+- Multi-tenant ready design
+- Fully tested domain (14/14 tests)
+- Clean Architecture (DDD + Hexagonal)
 
 ---
 
-## ?? Project Structure
+## 🧠 Architecture
 
-``
+```text
+API Layer (REST)
+  └── Controllers / Middleware
+
+Application Layer
+  └── Use Cases / DTOs / Ports
+
+Domain Layer
+  └── Entities / Value Objects / Services
+
+Infrastructure Layer
+  └── EF Core / Providers / Repositories
+```
+
+📄 Full details → [ARCHITECTURE.md](./ARCHITECTURE.md)
+
+---
+
+## 📁 Project Structure
+
+```bash
 src/
-+-- CleanDddHexagonal.Domain/          # Business logic
-+-- CleanDddHexagonal.Application/     # Use cases & workflows
-+-- CleanDddHexagonal.Infrastructure/  # Data access & adapters
-+-- CleanDddHexagonal.Api/             # REST endpoints
+├── CleanDddHexagonal.Domain/
+├── CleanDddHexagonal.Application/
+├── CleanDddHexagonal.Infrastructure/
+└── CleanDddHexagonal.Api/
 
 tests/
-+-- CleanDddHexagonal.Tests/           # 14 unit tests
-``
+└── CleanDddHexagonal.Tests/
+```
 
 ---
 
-## ?? Getting Started
+## ⚙️ Run Locally
 
-### Prerequisites
-
-- .NET 8.0 SDK
-- Git
-
-### Build & Run
-
-``ash
-# Restore dependencies
+```bash
 dotnet restore
-
-# Build
 dotnet build
-
-# Run tests
 dotnet test
-
-# Run API
 dotnet run --project src/CleanDddHexagonal.Api --urls "http://localhost:5214"
-``
-
-### API Documentation
-
-Open Swagger UI at: **http://localhost:5214/swagger**
+```
 
 ---
 
-## ?? API Endpoints
+## 📡 API Overview
 
-### Provider Management
-- POST /api/v1/providers/register - Register cloud provider
-- GET /api/v1/providers/{providerId} - Get provider
-- DELETE /api/v1/providers/{providerId} - Deactivate provider
+### Providers
+- POST `/api/v1/providers/register`
+- GET `/api/v1/providers/{id}`
+- DELETE `/api/v1/providers/{id}`
 
-### Cost Allocation  
-- GET /api/v1/costallocation/report/{tenantId} - Cost report
-- GET /api/v1/costallocation/margin-analysis/{customerId} - Margin analysis
-- POST /api/v1/costallocation/sync/{providerId} - Sync costs
+### Cost Allocation
+- GET `/api/v1/costallocation/report/{tenantId}`
+- GET `/api/v1/costallocation/margin-analysis/{customerId}`
+- POST `/api/v1/costallocation/sync/{providerId}`
 
 ### Reconciliation
-- POST /api/reconciliation/run - Run reconciliation
-- GET /api/reconciliation/issues/open - Get issues
-- PATCH /api/reconciliation/issues/{id}/resolve - Resolve issue
+- POST `/api/reconciliation/run`
+- GET `/api/reconciliation/issues/open`
+- PATCH `/api/reconciliation/issues/{id}/resolve`
 
 ---
 
-## ?? Cloud Providers
+## ☁️ Cloud Providers
 
-### Azure
-- Status: MVP (mock data)
-- Adapter: AzureUsageClientMock
-- Next: Real Azure Cost Management API
+**Azure**
+- Mock implementation (MVP)
+- Next → Azure Cost Management API
 
-### AWS  
-- Status: MVP (mock data)
-- Adapter: AWSCostExplorerClientMock
-- Next: Real AWS Cost Explorer API
+**AWS**
+- Mock implementation (MVP)
+- Next → AWS Cost Explorer API
 
 ---
 
-## ?? Testing
+## 🧪 Testing
 
-- **14/14 tests passing**
-- Domain logic validation
-- Architecture compliance
-- Provider management lifecycle
+- 14/14 tests passing  
+- Domain logic validated  
+- Architecture compliance  
 
-``ash
+```bash
 dotnet test
-``
+```
 
 ---
 
-## ??? Technology Stack
+## 🧰 Tech Stack
 
-| Component | Technology |
-|-----------|-----------|
+| Layer | Tech |
+|------|------|
 | Language | C# (.NET 8) |
 | API | ASP.NET Core |
 | ORM | Entity Framework Core |
-| Database | SQLite / PostgreSQL |
+| DB | SQLite / PostgreSQL |
 | Validation | FluentValidation |
 | Testing | xUnit |
 
 ---
 
-## ?? Design Patterns
+## 🧩 Design
 
-- **Clean Architecture** - Separation of concerns
-- **Domain-Driven Design (DDD)** - Business-focused modeling
-- **Hexagonal Architecture** - Port & Adapter pattern
-- **Repository Pattern** - Data abstraction
-- **Use Cases** - Business workflows
-- **Value Objects** - Type-safe domain values
-
----
-
-## ??? Roadmap
-
-### Phase 1: MVP ?
-- [x] Multi-provider architecture
-- [x] Azure + AWS adapters
-- [x] Cost allocation & margin analysis
-- [x] 14 unit tests
-- [x] REST API with Swagger
-
-### Phase 2: Production
-- [ ] Real Azure Cost Management API
-- [ ] Real AWS Cost Explorer API  
-- [ ] Provider credential encryption
-- [ ] Advanced reconciliation rules
-
-### Phase 3: Enterprise
-- [ ] Google Cloud support
-- [ ] Custom pricing rules
-- [ ] Advanced dashboards
-- [ ] Anomaly detection
+- Clean Architecture
+- Domain-Driven Design (DDD)
+- Hexagonal (Ports & Adapters)
+- Repository Pattern
+- Use Cases
+- Value Objects
 
 ---
 
-## ?? Documentation
+## 🎯 Roadmap
 
-- **[ARCHITECTURE.md](./ARCHITECTURE.md)** - Detailed architecture guide
-- **[README.md](./README.md)** - This file
-- **Swagger UI** - Interactive API docs at /swagger
+**MVP**
+- ✔ Multi-provider
+- ✔ Azure + AWS
+- ✔ Cost allocation
+- ✔ Tests
+- ✔ Swagger API
+
+**Production**
+- ☐ Real Azure API  
+- ☐ Real AWS API  
+- ☐ Credential security  
+- ☐ Advanced rules  
+
+**Enterprise**
+- ☐ GCP support  
+- ☐ Custom pricing  
+- ☐ Dashboards  
+- ☐ Anomaly detection  
 
 ---
 
-## ? Show Your Support
+## 📚 Docs
 
-If this project helps you:
+- 📄 [Architecture](./ARCHITECTURE.md)
+- 📘 Swagger → `/swagger`
 
-- **Give it a star** ? to show support
-- **Use it as a base** for your projects  
-- **Connect with me** ?? on LinkedIn
-
-### ?? Contact
-
-?? **Created by** ? **[Manu Saquero](https://www.linkedin.com/in/manusaquero/)**
-
-?? **Software Developer** ?? Passionate about building real products
 
 ---
 
-**Built with precision for enterprise cloud reconciliation.** ??
+## ⭐ ¿Te ha gustado?
+
+Si este proyecto te aporta valor:
+
+- Dale una estrella ⭐  
+- Úsalo como base  
+- Conecta conmigo 🤝
+---
+
+## 📬 Contacto
+
+💼 Proyecto creado por 👉 [**Manu Saquero**](https://www.linkedin.com/in/manusaquero/)  
+
+🧠 Software Developer  
+🚀 Apasionado por crear productos reales
