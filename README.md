@@ -1,4 +1,5 @@
-# Cloud Reconciliation Engine — Enterprise Edition
+<h1 align="center">Cloud Reconciliation Engine — Enterprise Edition</h1>
+
 
 <p align="center">
   <b>Multi-provider cloud billing reconciliation platform</b><br/>
