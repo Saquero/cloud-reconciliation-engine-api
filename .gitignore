@@ -2,7 +2,13 @@ bin/
 obj/
 .vs/
 .vscode/
+
+*.user
+*.suo
+*.log
+
 *.db
 *.db-shm
 *.db-wal
+
 appsettings.Development.json

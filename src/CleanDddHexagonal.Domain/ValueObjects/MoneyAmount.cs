@@ -2,7 +2,7 @@ using CleanDddHexagonal.Domain.Exceptions;
 
 namespace CleanDddHexagonal.Domain.ValueObjects;
 
-public sealed class MoneyAmount
+public sealed class MoneyAmount : IEquatable<MoneyAmount>
 {
     public decimal Value { get; }
     public string Currency { get; }
@@ -26,6 +26,28 @@ public sealed class MoneyAmount
 
         return new MoneyAmount(decimal.Round(value, 2), currency.Trim().ToUpperInvariant());
     }
+
+    // ✅ NUEVO: Igualdad por valor
+    public override bool Equals(object? obj) => Equals(obj as MoneyAmount);
+
+    public bool Equals(MoneyAmount? other)
+    {
+        if (other is null) return false;
+        return Value == other.Value && Currency == other.Currency;
+    }
+
+    // ✅ NUEVO: Hash para colecciones
+    public override int GetHashCode() => HashCode.Combine(Value, Currency);
+
+    // ✅ NUEVO: Operadores de igualdad
+    public static bool operator ==(MoneyAmount? left, MoneyAmount? right)
+    {
+        if (left is null && right is null) return true;
+        if (left is null || right is null) return false;
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(MoneyAmount? left, MoneyAmount? right) => !(left == right);
 
     public override string ToString() => $"{Value:0.00} {Currency}";
 }
